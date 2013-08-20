@@ -1,0 +1,4 @@
+
+.container h1 { margin:0; font-weight:normal; }
+.container div { margin-bottom:24px; font-size:14px; }
+.container .element{ width:300px; padding:10px;float:left; border:1px solid #aaa; margin:0 10px 10px 0;  font-family:sans-serif; color:#333; background-color:#eee; }

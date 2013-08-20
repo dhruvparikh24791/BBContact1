@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <link rel="stylesheet" href="css/screen.css" />
+    </head>
+    <body>
+
+
+        <div id="main">
+            <div id="controls"><b style="background-color: lightgrey">ADD CONTACT</b>
+                Name : <input type="text" id="name"/>
+                Address : <input type="text" id="address"/>
+                <button id="add">Add</button>
+                <hr/><b style="background-color: lightgrey">SEARCH CONTACT</b>
+                Search Name : <input type="text" id="search"/> <button id="searchbutton" class="searchByName">Search</button>
+            </div> 
+            <div style="position:relative;margin-top: 0">
+                <hr/><b style="background-color: lightgrey">EDIT CONTACT</b>
+                Name : <input type="text" id="nameEdit"/>
+                Address : <input type="text" id="addressEdit"/>
+                id  : <input type="text" id="idEdit" disabled/>
+                <button id="edit">Save</button>
+                <br/></div>
+            <hr/>
+            <div id="container" class="container">
+
+            </div>
+        </div>
+        <br/>
+       
+                
+          
+            <script data-main="js/config" src="js/lib/require.js"></script>
+
+    </body>
+</html>
