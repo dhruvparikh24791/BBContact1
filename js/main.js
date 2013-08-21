@@ -16,16 +16,23 @@ requirejs(['views/MasterView', 'routers/ContactsRouter'],
                 $('#addPanel').click(function() {
                     $('#addContact').slideToggle('fast', function() {
                         // Animation complete.
+                        $('#searchContact').slideUp('fast');
+                        $('#editContact').slideUp('fast');
+                        
                     });
                 });
                 $('#searchPanel').click(function() {
                     $('#searchContact').slideToggle('fast', function() {
                         // Animation complete.
+                        $('#editContact').slideUp('fast');
+                        $('#addContact').slideUp('fast');
                     });
                 });
                 $('#editPanel').click(function() {
                     $('#editContact').slideToggle('fast', function() {
                         // Animation complete.
+                        $('#searchContact').slideUp('fast');
+                        $('#addContact').slideUp('fast');
                     });
                 });
                 //Listening to Enter Key

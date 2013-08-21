@@ -12,7 +12,7 @@
     <description>
         An example for pbackbone dhruv. 
     </description>
-
+ 	<icon src="icon.png" />
     <author href="https://dhruv.vom" email="support@phonegap.com">
         Dhruv Parikh 
     </author>

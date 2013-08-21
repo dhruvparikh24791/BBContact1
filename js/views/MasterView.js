@@ -10,7 +10,7 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
             //Make an array for example
             var contacts = [
                 {name: "Contact 0", address: "1, a street, a towsadsad a city, AB12 3CD", id: 0},
-                {name: "Contact 1", address: "2, a street, a town, a city, AB14 3CD", id:1},
+                {name: "Contact 1", address: "2, a street, a town, a city, AB14 3CD", id: 1},
                 {name: "Contact 2", address: "3, a street, a town, a city, AB164 3CD", id: 2},
                 {name: "Contact 3", address: "4, a street, a town, a city, AB1253CD", id: 3},
                 {name: "Contact 4", address: "5, a street, a town, a city, AB1243CD", id: 4},
@@ -25,9 +25,9 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                 el: "#main", //main is the div element in which  page and controls is there
                 initialize: function() {
                     console.log("master view initialized");
-                   
+
                     this.collection = new Directory(contacts);
-                     
+
                     _.bindAll(this, "render");//'this' will refer to the element that invoked the event  object.on(event, callback, [context])
                     this.collection.on("reset", this.render, this);  //render on collection changes and update - it gets the latest copy of the contacts array and then renders it
                     this.collection.on("add", this.renderContact, this); //add - adds single contact in collection and renders and also adds to array
@@ -39,7 +39,8 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                     "click #add": "addContact", //adding contact
                     "click button.delete": "deleteContact", // delete button
                     "click button.edit": "editContact", // edit button in model
-                    "click #edit": "updateContact" // on save button after editing
+                    "click #edit": "updateContact", // on save button after editing
+                    "click #resetBtn": "resetList"
 
                 },
                 render: function() {
@@ -89,6 +90,7 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                     }
                 },
                 addContact: function() {    //Adding new contact to collection and array
+
                     var flag = false;   //validation
                     if ($("#name").val() === "" || $("#address").val() === "") {
                         flag = false;
@@ -111,12 +113,15 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                         $("#name").val("");//clear fields
                         $("#address").val("");
                         this.collection.add(new ContactModel({name: name, address: address, id: id}));//add model to collection
-                        
+
                         console.log(this.collection);
+                        //toggle editpanel
+                        $("#addContact").slideUp('fast');
                         this.collection.reset(contacts);
                         console.log("Reset Add");
                     }
-                },
+                }
+                ,
                 deleteContact: function(event) {    //delete button pressed
 
                     var id = $(event.target).parent().data("id"); //get the id of the div
@@ -138,14 +143,19 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                     this.collection.reset(contacts); // Reset Collection with new contacts
                 },
                 editContact: function() {   //Edit Contact button
-
-                    console.log(event.target);
-                    var id = $(event.target).parent().data("id"); // get id and model
-                    console.log("to be edited : " + id);
-                    var modelEdit = this.collection.get(id);
+                    //toggle editpanel
+                    if ($("#editContact").css("display") === "none") {
+                        $("#editContact").slideDown('fast');
+                    }
+                    //console.log(event.target);
+                    var idd = $(event.target).parent().data("id"); // get id and model
+                    console.log("to be edited : " + idd);
+                    var modelEdit = this.collection.get(idd);
+                    console.log(modelEdit);
                     $("#nameEdit").val(modelEdit.get("name"));//load textfields with model values
                     $("#addressEdit").val(modelEdit.get("address"));
                     $("#idEdit").val(modelEdit.get("id"));
+
 
                 },
                 updateContact: function() { //On Save Button after editing
@@ -166,25 +176,33 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                         var name = $("#nameEdit").val();//get new values
                         var address = $("#addressEdit").val();
                         //console.log(this.collection);
-                        var id = $("#idEdit").val();
-                        console.log("Editing model[" + id + "]");
-                        var modelEdit = this.collection.get(id);//get model
-                        modelEdit.set({name: name, address: address, id: id});//set new model 
-                        _.each(contacts, function(contact) {
-                            //  console.log(contact["name"]);
-                            if (contact["id"] === id) { // get contact from contacts array by its id and update the contacts array
-                                console.log("Go id of ");
-                                console.log(contact);
-                                contact["name"] = name;
-                                contact["address"] = address;
-                            }
-                        });
+                        var idd = $("#idEdit").val();
+                        console.log("Editing model[" + idd + "]");
+                        var modelEdit = this.collection.get(idd);//get model
+                        modelEdit.set({name: name, address: address, id: idd});//set new model 
+                        console.log(modelEdit);
+                        // console.log(contacts);
+                        //change in the array
+                        contacts[idd].name = name;
+                        contacts[idd].address = address;
+                        console.log(contacts[idd]);
+
                         //console.log(contacts);
                         $("#nameEdit").val(""); // clear
                         $("#addressEdit").val("");
                         $("#idEdit").val("");
+
+                        //toggle editpanel
+                        $("#editContact").slideUp('fast');
+
                         this.collection.reset(contacts);//reset collection
                     }
+                },
+                resetList: function() {
+             $("#editContact").slideUp('fast');
+              $("#addContact").slideUp('fast');
+               $("#searchContact").slideUp('fast');
+                    this.collection.reset(contacts);
                 }
             });
             return DirectoryView;
