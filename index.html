@@ -10,30 +10,42 @@
 
 
         <div id="main">
-            <div id="controls"><b style="background-color: lightgrey">ADD CONTACT</b><br/>
+            <div id="controls" class="controlsClass">
+                <button id="addPanel">Add</button>
+                <button id="searchPanel">Search</button>
+                <button id="editPanel">Edit</button>
+            
+            <div id="addContact" style="display: none">
+
                 Name : <input type="text" id="name"/><br/>
                 Address : <input type="text" id="address"/><br/>
                 <button id="add">Add</button>
-                <hr/><b style="background-color: lightgrey">SEARCH CONTACT</b><br/>
+
+            </div>
+            
+            <div id="searchContact" style="display: none">
+
                 Search Name : <input type="text" id="search"/> <br/><button id="searchbutton" class="searchByName">Search</button>
-            </div> 
-            <div style="position:relative;margin-top: 0">
-                <hr/><b style="background-color: lightgrey">EDIT CONTACT</b><br/>
+            </div>
+           
+            <div id="editContact" style="display: none">
+
                 Name : <input type="text" id="nameEdit"/><br/>
                 Address : <input type="text" id="addressEdit"/><br/>
                 id  : <input type="text" id="idEdit" disabled/><br/>
                 <button id="edit">Save</button><br/>
-                <br/></div>
+                <br/>
+            </div>
             <hr/>
             <div id="container" class="container">
 
             </div>
         </div>
         <br/>
-       
-                
-          
-            <script data-main="js/config" src="js/lib/require.js"></script>
+
+
+
+        <script data-main="js/config" src="js/lib/require.js"></script>
 
     </body>
 </html>

@@ -6,17 +6,18 @@
 //get all the dependencies
 define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'views/ContactView', 'models/ContactModel'],
         function($, _, Backbone, Directory, ContactView, ContactModel) {
+            var id = 8;
             //Make an array for example
             var contacts = [
-                {name: "Contact 0", address: "1, a street, a towsadsad a city, AB12 3CD", id: "0"},
-                {name: "Contact 1", address: "2, a street, a town, a city, AB14 3CD", id: "1"},
-                {name: "Contact 2", address: "3, a street, a town, a city, AB164 3CD", id: "2"},
-                {name: "Contact 3", address: "4, a street, a town, a city, AB1253CD", id: "3"},
-                {name: "Contact 4", address: "5, a street, a town, a city, AB1243CD", id: "4"},
-                {name: "Contact 5", address: "6, a street, a town, a city, AB154 3CD", id: "5"},
-                {name: "Contact 6ss", address: "1, a street, a town, a city, AB54 3CD", id: "6"},
-                {name: "Contact 7", address: "81, a street, a town, a city, AB14 3CD", id: "7"},
-                {name: "Contact 8", address: "19, a street, a town, a city, AB1444 3CD", id: "8"}
+                {name: "Contact 0", address: "1, a street, a towsadsad a city, AB12 3CD", id: 0},
+                {name: "Contact 1", address: "2, a street, a town, a city, AB14 3CD", id:1},
+                {name: "Contact 2", address: "3, a street, a town, a city, AB164 3CD", id: 2},
+                {name: "Contact 3", address: "4, a street, a town, a city, AB1253CD", id: 3},
+                {name: "Contact 4", address: "5, a street, a town, a city, AB1243CD", id: 4},
+                {name: "Contact 5", address: "6, a street, a town, a city, AB154 3CD", id: 5},
+                {name: "Contact 6ss", address: "1, a street, a town, a city, AB54 3CD", id: 6},
+                {name: "Contact 7", address: "81, a street, a town, a city, AB14 3CD", id: 7},
+                {name: "Contact 8", address: "19, a street, a town, a city, AB1444 3CD", id: 8}
             ];
 
             //Make Collections View
@@ -24,7 +25,7 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                 el: "#main", //main is the div element in which  page and controls is there
                 initialize: function() {
                     console.log("master view initialized");
-                    console.log(this.collection);
+                   
                     this.collection = new Directory(contacts);
                      
                     _.bindAll(this, "render");//'this' will refer to the element that invoked the event  object.on(event, callback, [context])
@@ -53,7 +54,7 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                     }, this);
                 },
                 renderContact: function(item) {
-                    console.log("item =" + item.get("address"));
+                    //console.log("item =" + item.get("address"));
                     var conviw = new ContactView({model: item}); // get a new view for each new model
 
 
@@ -100,12 +101,20 @@ define(['jquery', 'underscore', 'backbone', 'collections/ContactCollection', 'vi
                         var name = $("#name").val();
                         var address = $("#address").val();
                         //console.log(this.collection);
-                        var id = (parseInt(this.collection.models[this.collection.length - 1].get("id")) + 1); // get id of last model of collection and incrementing it
+                        //ERROR NOT GETTING ID AFTER 10
+                        id++;
+                        console.log(id);
+                        //console.log(parseInt(parseInt(this.collection.models[this.collection.length - 1].get("id"))+1));// get id of last model of collection and incrementing it
                         console.log("Adding " + name + " " + address);
                         contacts.push({name: name, address: address, id: id});//Add to contacts array
+                        console.log(contacts);
                         $("#name").val("");//clear fields
                         $("#address").val("");
                         this.collection.add(new ContactModel({name: name, address: address, id: id}));//add model to collection
+                        
+                        console.log(this.collection);
+                        this.collection.reset(contacts);
+                        console.log("Reset Add");
                     }
                 },
                 deleteContact: function(event) {    //delete button pressed

@@ -10,14 +10,12 @@ define(['jquery', 'underscore', 'backbone'],
             var ContactModel = Backbone.Model.extend({
                 initialize: function() {
                     console.log("Model Initialized..");
-                    this.on("change:name", function() {
-                        console.log("name Changed");
-                    });
+                   
                 },
                 defaults: {
                     name: 'NoName',
                     address: 'NoAddress',
-                    id: "999"
+                    id: 999
                 }
             });
             
